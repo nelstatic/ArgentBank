@@ -2,20 +2,38 @@
   "name": "argentbank",
   "version": "0.1.0",
   "private": true,
+  "description": "Project #10 - Argent Bank",
+  "keywords": [],
+  "author": "",
+  "license": "",
+  "main": "index.js",
   "dependencies": {
+    "@reduxjs/toolkit": "^2.4.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.19.2",
+    "bcrypt": "^5.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-redux": "^9.1.2",
+    "react-router-dom": "^7.0.2",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4"
+    "swagger-ui-express": "^4.1.4",
+    "web-vitals": "^2.1.4",
+    "yamljs": "^0.3.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "node ./server/server.js",
+    "dev:server": "nodemon ./server/server.js",
+    "populate-db": "node ./server/scripts/populateDatabase.js",
+    "client": "react-scripts start",
+    "dev": "concurrently \"npm run dev:server\" \"npm run client\""
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +52,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.0",
+    "nodemon": "^2.0.4"
   }
 }
