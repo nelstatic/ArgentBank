@@ -1,20 +1,26 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { loginApi } from "./loginApi"; // Cette API effectue la connexion avec le backend
+import axios from "axios";
 
 // Action asynchrone pour la connexion
 export const loginUser = createAsyncThunk(
   "auth/login", // Identifiant de l'action
-  async (credentials, { rejectWithValue }) => {
+  async ({ email, password }, { rejectWithValue }) => {
     try {
-      // Envoie des informations de connexion à l'API
-      const response = await loginApi(credentials);
-      const { token, user } = response.data;
+      // Effectuer l'appel API directement ici avec le format attendu par l'API
+      const response = await axios.post(
+        "http://localhost:3001/api/v1/user/login", // URL de connexion
+        {
+          email, // Corps de la requête respectant la structure de l'API
+          password, // Corps de la requête respectant la structure de l'API
+        }
+      );
 
-      // Retourner les informations directement dans Redux
-      return { token, user }; // Pas de sauvegarde dans localStorage
+      // Vérification que la réponse est valide, et extraction des données
+      const { token, user } = response.data.body; // Accès aux données spécifiques de la réponse
+      return { token, user }; // Retourne ces données comme payload dans l'action
     } catch (error) {
-      // Si une erreur survient, on la retourne
-      return rejectWithValue(error.message);
+      console.error("Error during login request:", error);
+      return rejectWithValue("Login failed: " + error.message); // Retourner l'erreur en cas d'échec
     }
   }
 );

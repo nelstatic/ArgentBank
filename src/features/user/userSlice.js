@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getUserProfile } from "./userProfileApi"; // Importation de la fonction API
+import { fetchUserProfile } from "./userActions"; // Importation de l'action asynchrone
 
 const userSlice = createSlice({
   name: "user",
@@ -8,31 +8,21 @@ const userSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {
-    setUserInfo: (state, action) => {
-      state.userInfo = action.payload;
-    },
-    setLoading: (state, action) => {
-      state.loading = action.payload;
-    },
-    setError: (state, action) => {
-      state.error = action.payload;
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUserProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(fetchUserProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.userInfo = action.payload; // Mise à jour des informations utilisateur
+      })
+      .addCase(fetchUserProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload; // En cas d'erreur
+      });
   },
 });
-
-export const { setUserInfo, setLoading, setError } = userSlice.actions;
-
-export const fetchUserProfile = (token) => async (dispatch) => {
-  try {
-    dispatch(setLoading(true));
-    const response = await getUserProfile(token);
-    dispatch(setUserInfo(response.data));
-  } catch (error) {
-    dispatch(setError(error.message));
-  } finally {
-    dispatch(setLoading(false));
-  }
-};
 
 export default userSlice.reducer;

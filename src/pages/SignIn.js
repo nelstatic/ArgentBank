@@ -12,7 +12,6 @@ const SignIn = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // Dispatch de l'action loginUser avec les données du formulaire
     dispatch(loginUser({ email, password }))
       .then(() => {

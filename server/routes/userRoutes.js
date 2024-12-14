@@ -6,14 +6,12 @@ const tokenValidation = require("../middleware/tokenValidation");
 router.post("/signup", userController.createUser);
 router.post("/login", userController.loginUser);
 
-// Route pour obtenir le profil utilisateur
 router.get(
   "/profile",
   tokenValidation.validateToken,
   userController.getUserProfile
 );
 
-// Route pour mettre à jour le profil utilisateur
 router.put(
   "/profile",
   tokenValidation.validateToken,
