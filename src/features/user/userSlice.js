@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUserProfile } from "./userActions"; // Importation de l'action asynchrone
+import { fetchUserProfile } from "./userActions";
 
 const userSlice = createSlice({
   name: "user",
@@ -8,7 +8,6 @@ const userSlice = createSlice({
     loading: false,
     error: null,
   },
-  reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserProfile.pending, (state) => {
@@ -16,11 +15,11 @@ const userSlice = createSlice({
       })
       .addCase(fetchUserProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.userInfo = action.payload; // Mise à jour des informations utilisateur
+        state.userInfo = action.payload; // Mise à jour du profil utilisateur
       })
       .addCase(fetchUserProfile.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload; // En cas d'erreur
+        state.error = action.payload; // Erreur d'API
       });
   },
 });

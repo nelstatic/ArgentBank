@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser } from "./loginAction"; // Assurez-vous d'importer l'action de connexion
+import { loginUser } from "./loginAction";
 
 const authSlice = createSlice({
   name: "auth",
@@ -20,17 +20,17 @@ const authSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.pending, (state) => {
-        state.loading = true; // Pendant la requête, l'état est en chargement
+        state.loading = true;
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = false;
-        state.token = action.payload.token; // Mise à jour du token récupéré
-        state.isLogged = true; // Marquer l'utilisateur comme connecté
-        state.userInfo = action.payload.user; // Sauvegarder les informations utilisateur
+        state.token = action.payload.token; // Mise à jour du token
+        state.isLogged = true;
+        state.userInfo = action.payload.user; // Mise à jour des infos utilisateur
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.payload; // Gestion des erreurs
+        state.error = action.payload;
       });
   },
 });
