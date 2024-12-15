@@ -1,13 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserProfile } from "../features/user/userActions"; // Action modifiée
 import "../assets/css/main.css";
 import { Navigate } from "react-router-dom";
+import EditForm from "../components/EditForm";
 
 const User = () => {
   const dispatch = useDispatch();
   const { userInfo, loading, error } = useSelector((state) => state.user); // Récupérer les infos utilisateur
   const { token, isLogged } = useSelector((state) => state.auth); // Vérification du token
+  const [isEditing, setIsEditing] = useState(false); // État pour afficher/masquer le formulaire
 
   useEffect(() => {
     // console.log("Is Logged:", isLogged);
@@ -36,7 +38,10 @@ const User = () => {
           <br />
           {userInfo?.firstName} {userInfo?.lastName}!
         </h1>
-        <button className="edit-button">Edit Name</button>
+        <button className="edit-button" onClick={() => setIsEditing(true)}>
+          Edit Name
+        </button>
+        {isEditing && <EditForm onClose={() => setIsEditing(false)} />}
       </div>
       <h2 className="sr-only">Accounts</h2>
       {userInfo?.accounts?.map((account, index) => (

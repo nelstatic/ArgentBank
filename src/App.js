@@ -1,5 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+
+import { fetchUserProfile } from "./features/user/userActions";
 
 // Components
 import Header from "./components/Header.js";
@@ -11,16 +14,25 @@ import User from "./pages/User.js";
 
 // Composant pour les routes protégées
 const ProtectedRoute = ({ children }) => {
-  const { isLogged } = useSelector((state) => state.auth); // Utilise isLogged depuis le state Redux
+  const { isLogged } = useSelector((state) => state.auth);
 
-  // Si l'utilisateur n'est pas connecté (isLogged === false), redirige vers la page de connexion
   if (!isLogged) {
     return <Navigate to="/login" />;
   }
-  return children; // Retourne les enfants si l'utilisateur est connecté
+  return children;
 };
 
 function App() {
+  const dispatch = useDispatch();
+  const { token, isLogged } = useSelector((state) => state.auth);
+
+  // Recharger le profil utilisateur si un token est présent
+  useEffect(() => {
+    if (token && isLogged) {
+      dispatch(fetchUserProfile(token)); // Récupération du profil utilisateur
+    }
+  }, [dispatch, token, isLogged]);
+
   return (
     <BrowserRouter>
       <Header />
@@ -28,7 +40,6 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<SignIn />} />
-          {/* Route protégée pour l'utilisateur */}
           <Route
             path="/user"
             element={
