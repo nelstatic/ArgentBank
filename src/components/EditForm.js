@@ -15,7 +15,6 @@ const EditForm = ({ onClose }) => {
     if (userName) updatedData.userName = userName;
 
     dispatch(userEditAction({ token, updatedData })).then(() => {
-      console.log("Mise à jour réussie !");
       onClose(); // Ferme le formulaire après validation
     });
   };
@@ -28,6 +27,7 @@ const EditForm = ({ onClose }) => {
           type="text"
           value={userName}
           onChange={(e) => setUserName(e.target.value)}
+          required
         />
       </div>
       <button type="submit" className="edit-button">

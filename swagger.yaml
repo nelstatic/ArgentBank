@@ -1,13 +1,13 @@
-swagger: '2.0'
+swagger: "2.0"
 info:
   title: Bank Argent API documentation
   description: Contains all available API endpoints in this codebase
-  version: '1.0.0'
-  termsOfService: 'http://swagger.io/terms/'
+  version: "1.0.0"
 host: localhost:3001
 basePath: /api/v1
 schemes:
   - http
+
 paths:
   /user/login:
     post:
@@ -18,210 +18,135 @@ paths:
       parameters:
         - in: body
           name: body
-          description: Login Payload
           required: true
           schema:
-            $ref: '#/definitions/Login'
-      produces:
-        - application/json
+            $ref: "#/definitions/Login"
       responses:
-        '200':
+        "200":
           description: Login Successfully
           schema:
-            $ref: '#/definitions/LoginResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+            $ref: "#/definitions/LoginResponse"
+
   /user/signup:
     post:
       tags:
         - User Module
       summary: Signup
-      description: API for Signup
       parameters:
         - in: body
           name: body
-          description: Signup Payload
           required: true
           schema:
-            $ref: '#/definitions/User'
-      produces:
-        - application/json
+            $ref: "#/definitions/User"
       responses:
-        '200':
+        "200":
           description: Signup Successfully
-          schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+
   /user/profile:
     get:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
-      description: API for fetching a user profile
-      #produces:
-       # - application/json
+      summary: Fetch user profile
       responses:
-        '200':
-          description: User profile retrieved successully
+        "200":
+          description: User profile successfully retrieved
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+            $ref: "#/definitions/ApiResponse"
     put:
       security:
         - Bearer: []
       tags:
         - User Module
-      summary: User Profile API
-      description: API for updating a user profile
+      summary: Update user profile
       parameters:
         - in: body
           name: body
-          description: Update user profile attributes
           required: true
           schema:
-            $ref: '#/definitions/UserProfile'
-      produces:
-        - application/json
+            $ref: "#/definitions/UserProfile"
       responses:
-        '200':
-          description: User profile retrieved successully
+        "200":
+          description: User profile updated successfully
+
+  /account/{userId}:
+    get:
+      security:
+        - Bearer: []
+      tags:
+        - Accounts Module
+      summary: Fetch user accounts
+      description: Retrieve all accounts for a specific user
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          type: string
+          description: ID of the user
+      responses:
+        "200":
+          description: Accounts retrieved successfully
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '400':
-          description: Invalid Fields
-        '500':
-          description: Internal Server Error
+            type: array
+            items:
+              $ref: "#/definitions/Account"
+        "404":
+          description: User not found
+
   /transactions/{accountId}:
     get:
       tags:
         - Transactions Module
-      summary: Fetch transactions
-      description: Retrieve transactions for a specific account
+      summary: Fetch transactions for an account
       parameters:
         - in: path
           name: accountId
           required: true
           type: string
-          description: Account ID to fetch transactions
+          description: ID of the account
         - in: query
           name: month
           required: false
           type: string
           description: Filter transactions by month (e.g., "2024-06")
-      produces:
-        - application/json
       responses:
-        '200':
+        "200":
           description: Transactions retrieved successfully
           schema:
             type: array
             items:
-              $ref: '#/definitions/Transaction'
-        '404':
+              $ref: "#/definitions/Transaction"
+        "404":
           description: Account not found
-        '500':
-          description: Internal Server Error
-  ##NOUVEAUX ENDPOINTS
-  /transactions/{accountId}:
-    get:
-      tags:
-        - Transactions Module
-      summary: Fetch transactions
-      description: Retrieve transactions for a specific account
-      parameters:
-        - in: path
-          name: accountId
-          required: true
-          type: string
-          description: Account ID to fetch transactions
-        - in: query
-          name: month
-          required: false
-          type: string
-          description: Filter transactions by month (e.g., "2024-06")
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Transactions retrieved successfully
-          schema:
-            type: array
-            items:
-              $ref: '#/definitions/Transaction'
-        '404':
-          description: Account not found
-        '500':
-          description: Internal Server Error
-  /transactions/{transactionId}:
-    put:
-      tags:
-        - Transactions Module
-      summary: Update a transaction
-      description: Update category or note for a transaction
-      parameters:
-        - in: path
-          name: transactionId
-          required: true
-          type: string
-          description: Transaction ID to update
-        - in: body
-          name: body
-          required: true
-          description: Fields to update
-          schema:
-            $ref: '#/definitions/TransactionUpdate'
-      produces:
-        - application/json
-      responses:
-        '200':
-          description: Transaction updated successfully
-          schema:
-            $ref: '#/definitions/Transaction'
-        '404':
-          description: Transaction not found
-        '500':
-          description: Internal Server Error
-securityDefinitions:
-  Bearer:
-    type: apiKey
-    name: Authorization
-    in: header
+
 definitions:
   User:
     properties:
       email:
         type: string
-        description: user email
       password:
         type: string
-        description: user password
       firstName:
         type: string
-        description: user first name
       lastName:
         type: string
-        description: user last name
       userName:
         type: string
-        description: user public name
+
   Login:
     properties:
       email:
         type: string
-        description: user email
       password:
         type: string
-        description: user password
+
+  LoginResponse:
+    type: object
+    properties:
+      token:
+        type: string
+
   ApiResponse:
     type: object
     properties:
@@ -231,21 +156,18 @@ definitions:
         type: string
       body:
         type: object
-        properties:
-          id:
-            type: string
-          email:
-            type: string
-  LoginResponse:
+
+  Account:
     type: object
     properties:
-      token:
+      id:
         type: string
-  UserProfile:
-    type: object
-    properties:
-      userName:
+      balance:
+        type: number
+      title:
         type: string
+        description: Account name
+
   Transaction:
     type: object
     properties:
@@ -261,14 +183,6 @@ definitions:
         type: number
       type:
         type: string
-      category:
-        type: string
-      note:
-        type: string
-
-  TransactionUpdate:
-    type: object
-    properties:
       category:
         type: string
       note:

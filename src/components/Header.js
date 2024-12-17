@@ -32,10 +32,11 @@ const Header = () => {
               <i className="fa fa-user-circle"></i>
               {userInfo?.userName}
             </NavLink>
-            <button className="main-nav-item" onClick={handleLogout}>
-              <i className="fa fa-sign-out"></i>
-              Logout
-            </button>
+
+            <a class="main-nav-item" href="#" onClick={handleLogout}>
+              <i class="fa fa-sign-out"></i>
+              Sign Out
+            </a>
           </>
         ) : (
           <NavLink className="main-nav-item" to="/login">

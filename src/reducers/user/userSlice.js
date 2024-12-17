@@ -25,7 +25,6 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(userEditAction.fulfilled, (state, action) => {
-        console.log("Données reçues après succès :", action.payload);
         state.loading = false;
         state.userInfo = { ...state.userInfo, ...action.payload }; // Met à jour les infos
       })
