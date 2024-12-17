@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserProfile } from "../features/user/userActions"; // Action modifiée
+import { fetchUserProfile } from "../reducers/user/userActions"; // Action modifiée
 import "../assets/css/main.css";
 import { Navigate } from "react-router-dom";
 import EditForm from "../components/EditForm";

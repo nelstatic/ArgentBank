@@ -1,24 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { loginUser } from "../features/auth/loginAction"; // Mise à jour du chemin d'importation de l'action de connexion
+import { loginUser } from "../reducers/auth/loginAction";
+import { clearError } from "../reducers/auth/authSlice";
 import { useNavigate } from "react-router-dom";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth); // Utilisation de auth pour l'état de l'authentification
+  const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
+
+  // Réinitialise l'erreur lors du montage
+  useEffect(() => {
+    dispatch(clearError()); // Efface l'erreur existante
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Dispatch de l'action loginUser avec les données du formulaire
+    dispatch(clearError()); // Efface l'erreur avant de tenter une nouvelle connexion
     dispatch(loginUser({ email, password }))
+      .unwrap()
       .then(() => {
-        navigate("/user"); // Redirige l'utilisateur vers le profil après connexion
+        navigate("/user");
       })
-      .catch((error) => {
-        console.log("Login failed:", error);
+      .catch((err) => {
+        console.error("Login failed:", err);
       });
   };
 

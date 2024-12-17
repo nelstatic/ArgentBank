@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Utiliser localStorage pour la persistance
-import authSlice from "../features/auth/authSlice"; // Chemin mis à jour
-import userSlice from "../features/user/userSlice"; // Chemin mis à jour
+import authSlice from "../reducers/auth/authSlice"; // Chemin mis à jour
+import userSlice from "../reducers/user/userSlice"; // Chemin mis à jour
 import { persistStore } from "redux-persist";
 
 // Configuration de la persistance pour Redux

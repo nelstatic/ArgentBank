@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { logout } from "../features/auth/authSlice";
+import { logout } from "../reducers/auth/authSlice";
 import "../assets/css/main.css";
 
 const Header = () => {

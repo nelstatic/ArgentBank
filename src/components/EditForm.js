@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userEditAction } from "../features/user/userActions";
+import { userEditAction } from "../reducers/user/userActions";
 
 const EditForm = ({ onClose }) => {
   const dispatch = useDispatch();
@@ -30,8 +30,10 @@ const EditForm = ({ onClose }) => {
           onChange={(e) => setUserName(e.target.value)}
         />
       </div>
-      <button type="submit">Save Changes</button>
-      <button type="button" onClick={onClose}>
+      <button type="submit" className="edit-button">
+        Save
+      </button>
+      <button type="button" className="edit-button" onClick={onClose}>
         Cancel
       </button>
     </form>

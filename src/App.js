@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 
-import { fetchUserProfile } from "./features/user/userActions";
+import { fetchUserProfile } from "./reducers/user/userActions";
 
 // Components
 import Header from "./components/Header.js";

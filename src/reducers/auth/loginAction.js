@@ -20,7 +20,7 @@ export const loginUser = createAsyncThunk(
       return { token, user }; // Retourne ces données comme payload dans l'action
     } catch (error) {
       console.error("Error during login request:", error);
-      return rejectWithValue("Login failed: " + error.message); // Retourner l'erreur en cas d'échec
+      return rejectWithValue(error.response?.data?.message || "Login failed");
     }
   }
 );
