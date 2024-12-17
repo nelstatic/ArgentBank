@@ -6,12 +6,11 @@ export const loginUser = createAsyncThunk(
   "auth/login", // Identifiant de l'action
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      // Effectuer l'appel API directement ici avec le format attendu par l'API
       const response = await axios.post(
-        "http://localhost:3001/api/v1/user/login", // URL de connexion
+        "http://localhost:3001/api/v1/user/login",
         {
-          email, // Corps de la requête respectant la structure de l'API
-          password, // Corps de la requête respectant la structure de l'API
+          email,
+          password,
         }
       );
 

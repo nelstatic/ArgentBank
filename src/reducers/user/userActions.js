@@ -13,7 +13,7 @@ export const fetchUserProfile = createAsyncThunk(
           },
         }
       );
-      return response.data.body; // Retour des données utilisateur
+      return response.data.body;
     } catch (error) {
       return rejectWithValue("Failed to fetch user profile");
     }
@@ -35,7 +35,7 @@ export const userEditAction = createAsyncThunk(
         }
       );
       console.log("Réponse API :", response.data);
-      return response.data.body; // Retourne les nouvelles données utilisateur
+      return response.data.body;
     } catch (error) {
       return rejectWithValue(error.message || "Failed to update profile");
     }

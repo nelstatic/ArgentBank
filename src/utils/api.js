@@ -23,3 +23,5 @@ export const putRequest = async (endpoint, data, token = null) => {
   const response = await axios.put(`${API_URL}${endpoint}`, data, config);
   return response.data;
 };
+
+//FONCTIONS GENERIQUES REUTILISABLES POUR LES TRANSACTIONS

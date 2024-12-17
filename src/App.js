@@ -1,21 +1,16 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-
 import { fetchUserProfile } from "./reducers/user/userActions";
 
-// Components
 import Header from "./components/Header.js";
 import Footer from "./components/Footer.js";
-// Pages
 import Home from "./pages/Home.js";
 import SignIn from "./pages/SignIn.js";
 import User from "./pages/User.js";
 
-// Composant pour les routes protégées
 const ProtectedRoute = ({ children }) => {
   const { isLogged } = useSelector((state) => state.auth);
-
   if (!isLogged) {
     return <Navigate to="/login" />;
   }

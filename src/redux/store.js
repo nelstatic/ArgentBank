@@ -5,7 +5,6 @@ import authSlice from "../reducers/auth/authSlice"; // Chemin mis à jour
 import userSlice from "../reducers/user/userSlice"; // Chemin mis à jour
 import { persistStore } from "redux-persist";
 
-// Configuration de la persistance pour Redux
 const persistConfig = {
   key: "root",
   storage,

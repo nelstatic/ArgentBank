@@ -9,8 +9,7 @@ const Header = () => {
   const navigate = useNavigate();
 
   const { isLogged } = useSelector((state) => state.auth);
-  const userInfo = useSelector((state) => state.user.userInfo); // Récupère userInfo depuis user
-
+  const userInfo = useSelector((state) => state.user.userInfo);
   const handleLogout = () => {
     dispatch(logout());
     navigate("/");

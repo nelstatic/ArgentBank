@@ -11,7 +11,7 @@ const SignIn = () => {
   const { loading, error } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 
-  // Réinitialise l'erreur lors du montage
+  // Réinitialise l'erreur
   useEffect(() => {
     dispatch(clearError()); // Efface l'erreur existante
   }, [dispatch]);
@@ -42,7 +42,7 @@ const SignIn = () => {
                 type="email"
                 id="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)} // Gestion du champ email
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             <div className="input-wrapper">
@@ -51,7 +51,7 @@ const SignIn = () => {
                 type="password"
                 id="password"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)} // Gestion du champ password
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
             <div className="input-remember">

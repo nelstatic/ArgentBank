@@ -23,11 +23,11 @@ const User = () => {
     return <Navigate to="/login" />; // Si non connecté, redirige vers /login
   }
 
-  if (loading) return <div>Loading...</div>; // Affiche un chargement pendant la récupération des données
-  if (error) return <div>{error}</div>; // Affiche une erreur s'il y en a une
+  if (loading) return <div>Loading...</div>;
+  if (error) return <div>{error}</div>;
 
   if (!userInfo) {
-    return <div>No user info available</div>; // Si aucun userInfo, afficher ce message
+    return <div>No user info available</div>;
   }
 
   return (
