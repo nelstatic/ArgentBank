@@ -119,6 +119,31 @@ paths:
               $ref: "#/definitions/Transaction"
         "404":
           description: Account not found
+    put:
+      security:
+        - Bearer: []
+      tags:
+        - Transactions Module
+      summary: Update a transaction
+      description: Update specific fields of a transaction (e.g., category or note)
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          type: string
+          description: ID of the transaction to update
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: "#/definitions/TransactionUpdate"
+      responses:
+        "200":
+          description: Transaction updated successfully
+          schema:
+            $ref: "#/definitions/Transaction"
+        "404":
+          description: Transaction not found
 
 definitions:
   User:
@@ -187,3 +212,13 @@ definitions:
         type: string
       note:
         type: string
+
+  TransactionUpdate:
+    type: object
+    properties:
+      category:
+        type: string
+        description: Updated category for the transaction
+      note:
+        type: string
+        description: Updated note for the transaction
